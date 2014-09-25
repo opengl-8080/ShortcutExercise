@@ -1,1 +1,2 @@
 KeyTest.test()
+KeyInputTest.test()
