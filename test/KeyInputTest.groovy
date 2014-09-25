@@ -37,16 +37,3 @@ static test() {
     assert input.has(Key.CTRL) == true
     assert input.has(Key.ALT) == true
 }
-
-def class DummyKeyEvent {
-    def keyCode
-    def metaKey = 0
-    
-    def getKeyCode() {
-        this.keyCode
-    }
-    
-    def getModifiersEx() {
-        this.metaKey
-    }
-}
