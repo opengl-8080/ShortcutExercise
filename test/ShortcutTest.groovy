@@ -2,6 +2,11 @@ import static java.awt.event.KeyEvent.*
 import static java.awt.event.InputEvent.*
 
 static test() {
+    test_match()
+    test_toString()
+}
+
+static test_match() {
     // single
     def shortcut = new Shortcut('type a', Key.map('a'))
     def key = new DummyKeyEvent(keyCode: VK_A)
@@ -36,4 +41,21 @@ static test() {
     input = KeyInput.parse(key)
     
     assert shortcut.match(input) == true
+}
+
+static test_toString() {
+    // single
+    def shortcut = new Shortcut('type a', Key.map('a'))
+    
+    assert shortcut.toString() == 'A'
+    
+    // with shift
+    shortcut = new Shortcut('type shift-b', Key.map('shift'), Key.map('b'))
+    
+    assert shortcut.toString() == 'Shift + B'
+    
+    // with ctrl + shift
+    shortcut = new Shortcut('type shift-c', Key.map('ctrl'), Key.map('shift'), Key.map('c'))
+    
+    assert shortcut.toString() == 'Ctrl + Shift + C'
 }

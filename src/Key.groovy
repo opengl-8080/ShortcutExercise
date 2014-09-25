@@ -2,24 +2,38 @@ def enum Key {
     CTRL,ALT,SHIFT,
     A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
     F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,
-    _0,_1,_2,_3,_4,_5,_6,_7,_8,_9,
-    AT,
-    BACK_SLASH,BACK_SPACE,
-    CAPS_LOCK,CIRCUMFLEX,CLOSE_BRACKET,COLON,COMMA,
+    _0('0'),_1('1'),_2('2'),_3('3'),_4('4'),_5('5'),_6('6'),_7('7'),_8('8'),_9('9'),
+    AT('@'),
+    BACK_SLASH('\\'),BACK_SPACE('BackSpace'),
+    CAPS_LOCK('CapsLock'),CIRCUMFLEX('^'),CLOSE_BRACKET(']'),COLON(':'),COMMA(';'),
     DELETE,DOWN,
     END,ENTER,ESCAPE,
     HOME,
     INSERT,
     LEFT,
-    MINUS,
-    NUM_LOCK,
-    OPEN_BRACKET,
-    PAGE_DOWN,PAGE_UP,PAUSE,PERIOD,PRINTSCREEN,
+    MINUS('-'),
+    NUM_LOCK('NumLock'),
+    OPEN_BRACKET('['),
+    PAGE_DOWN('PageDown'),PAGE_UP('PageUp'),PAUSE,PERIOD('.'),PRINTSCREEN('PrintScreen'),
     RIGHT,
-    SCROLL_LOCK,SEMICOLON,SLASH,SPACE,
+    SCROLL_LOCK('ScrollLock'),SEMICOLON(';'),SLASH('/'),SPACE,
     TAB,
     UP,
     WINDOWS,
+    
+    def display
+    
+    def Key() {
+        this.display = toLowerCaseWithoutFirstChar(this.name())
+    }
+    
+    def Key(display) {
+        this.display = display
+    }
+    
+    String toString() {
+        this.display
+    }
     
     static final def MAPPING = [
         'ctrl': CTRL,
@@ -115,5 +129,13 @@ def enum Key {
     
     static Key map(str) {
         MAPPING[str.toLowerCase()]
+    }
+    
+    static toLowerCaseWithoutFirstChar(str) {
+        if (str.length() == 1) {
+            str
+        } else {
+            str[0].toUpperCase() + str.substring(1).toLowerCase()
+        }
     }
 }
