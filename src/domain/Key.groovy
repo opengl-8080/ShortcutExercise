@@ -99,6 +99,7 @@ def enum Key {
         ']': CLOSE_BRACKET,
         ':': COLON,
         ',': COMMA,
+        'comma': COMMA,
         'del': DELETE,
         'delete': DELETE,
         'down': DOWN,

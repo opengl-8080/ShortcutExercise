@@ -14,4 +14,7 @@ static test() {
     key = Key.map('\\')
     assert key == Key.BACK_SLASH
     
+    key = Key.map('comma')
+    assert key == Key.COMMA
+    
 }
