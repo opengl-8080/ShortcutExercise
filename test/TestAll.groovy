@@ -3,4 +3,4 @@ KeyInputTest.test()
 ShortcutTest.test()
 PresetTest.test()
 QuestionTest.test()
-
+QuestionGeneratorTest.test()
