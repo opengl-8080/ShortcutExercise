@@ -5,6 +5,11 @@ def class Shortcut {
     def description
     List<Key> keys
     
+    def Shortcut (description, List<Key> keys) {
+        this.description = description
+        this.keys = new ArrayList(keys)
+    }
+    
     def Shortcut (description, Key... keys) {
         this.description = description
         this.keys = keys
