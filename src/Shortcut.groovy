@@ -1,15 +1,15 @@
 def class Shortcut {
     
     def description
-    def keys
+    List<Key> keys
     
-    def Shortcut (String description, Key... keys) {
+    def Shortcut (description, Key... keys) {
         this.description = description
         this.keys = keys
     }
     
     def match(KeyInput input) {
-        this.keys.every { input.has(it) }
+        this.keys.size() == input.keyCount() && this.keys.every { input.has(it) }
     }
     
     @Override

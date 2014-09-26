@@ -41,6 +41,13 @@ static test_match() {
     input = KeyInput.parse(key)
     
     assert shortcut.match(input) == true
+    
+    // type unnecessary key(alt)
+    shortcut = new Shortcut('type ctrl-shift-n', Key.map('ctrl'), Key.map('n'), Key.map('shift'))
+    key = new DummyKeyEvent(keyCode: VK_N, metaKey: CTRL_DOWN_MASK | SHIFT_DOWN_MASK | ALT_DOWN_MASK)
+    input = KeyInput.parse(key)
+    
+    assert shortcut.match(input) == false
 }
 
 static test_toString() {

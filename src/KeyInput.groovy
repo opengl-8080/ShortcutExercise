@@ -8,7 +8,7 @@ def class KeyInput {
         new KeyInput(key)
     }
     
-    def keys = []
+    List<Key> keys = []
     
     def KeyInput(key) {
         this.keys << MAPPING.get(key.keyCode as String)
@@ -28,6 +28,10 @@ def class KeyInput {
     
     def has(key) {
         this.keys.contains(key)
+    }
+    
+    def keyCount() {
+        this.keys.size()
     }
     
     static final def MAPPING = [
