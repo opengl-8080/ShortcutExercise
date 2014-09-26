@@ -1,3 +1,5 @@
+import domain.*
+
 static test() {
     
     def key = Key.map('a')

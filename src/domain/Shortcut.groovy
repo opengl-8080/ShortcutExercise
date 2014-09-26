@@ -1,3 +1,5 @@
+package domain
+
 def class Shortcut {
     
     def description

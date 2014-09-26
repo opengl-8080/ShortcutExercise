@@ -1,3 +1,5 @@
+package domain
+
 import java.awt.event.KeyEvent
 import static java.awt.event.KeyEvent.*
 import static java.awt.event.InputEvent.*
