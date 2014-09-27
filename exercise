@@ -1,0 +1,9 @@
+#!/bin/sh
+
+THIS_DIR=`pwd`
+SRC_DIR=$THIS_DIR/src
+SCRIPT_FILE=$SRC_DIR/Main.groovy
+PRESET_DIR=$THIS_DIR/preset
+export CLASSPATH=$SRC_DIR
+
+groovy -Dpreset.dir="$PRESET_DIR" "$SCRIPT_FILE"
