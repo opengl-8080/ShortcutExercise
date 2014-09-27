@@ -16,8 +16,7 @@ def class KeyInput {
         def typed = MAPPING.get(key.keyCode as String)
         
         if (typed == null) {
-            println "unknown key code = ${Integer.toHexString(key.keyCode)}"
-            typed = Key.A
+            typed = Key.UNSUPPORT
         }
         
         if (!typed.isMetaKey()) {
@@ -171,6 +170,12 @@ def class KeyInput {
         (VK_CONTEXT_MENU as String): CONTEXT_MENU,
         (VK_CLEAR as String): CLEAR,
         (VK_ALPHANUMERIC as String): ALPHANUMERIC,
-        (VK_CANCEL as String): CANCEL
+        (VK_CANCEL as String): CANCEL,
+        (VK_KP_UP as String): KP_UP,
+        (VK_KP_DOWN as String): KP_DOWN,
+        (VK_KP_LEFT as String): KP_LEFT,
+        (VK_KP_RIGHT as String): KP_RIGHT,
+        (VK_BEGIN as String): BEGIN,
+        (VK_INPUT_METHOD_ON_OFF as String): INPUT_METHOD_ON_OFF
     ]
 }

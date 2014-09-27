@@ -29,6 +29,9 @@ def enum Key {
     NONCONVERT('Muhenkan'),CONVERT('Henkan'),
     KATAKANA('Katakana'),HIRAGANA('Hiragana'),ALPHANUMERIC,
     CONTEXT_MENU('Context Menu'),CLEAR,CANCEL,
+    KP_UP('Keypad Up'),KP_DOWN('Keypad Down'),KP_LEFT('Keypad Left'),KP_RIGHT('Keypad right'),
+    BEGIN,INPUT_METHOD_ON_OFF('Input Method On Off'),
+    UNSUPPORT,
     
     
     def display
@@ -137,6 +140,11 @@ def enum Key {
         'right': RIGHT,
         'left': LEFT,
         'down': DOWN,
+        'kup': KP_UP,
+        'kright': KP_RIGHT,
+        'kleft': KP_LEFT,
+        'kdown': KP_DOWN,
+        'begin': BEGIN,
         '^': CIRCUMFLEX,
         '@': AT,
         '/': SLASH,
@@ -169,6 +177,7 @@ def enum Key {
         'menu': CONTEXT_MENU,
         'clear': CLEAR,
         'cancel': CANCEL,
+        'input_method_on_off': INPUT_METHOD_ON_OFF,
         'win': WINDOWS,
         'windowns': WINDOWS
     ]
