@@ -140,7 +140,9 @@ def class MainWindow {
     def loadPresetFiles() {
         def presetList = []
         
-        new File('.').eachFileMatch(FileType.FILES, ~/^.+_shortcut.txt$/) {
+        def presetDir = System.getProperty('preset.dir')
+        
+        new File(presetDir).eachFileMatch(FileType.FILES, ~/^.+_shortcut.txt$/) {
             presetList << PresetFactory.load(it)
         }
         
