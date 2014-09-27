@@ -1,0 +1,9 @@
+Copy,Ctrl,c
+Paste,Ctrl,v
+Cut,Ctrl,x
+Undo,Ctrl,z
+Redo,Ctrl,y
+Save,Ctrl,s
+Save All,Ctrl,Shift,s
+New File,Ctrl,n
+Rename,F2
