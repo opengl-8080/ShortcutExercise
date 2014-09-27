@@ -131,6 +131,9 @@ def enum Key {
     ]
     
     static Key map(str) {
+        if (!MAPPING.containsKey(str.toLowerCase())) {
+            throw new Exception(/unknown key > "${str}"/)
+        }
         MAPPING[str.toLowerCase()]
     }
     
