@@ -3,7 +3,12 @@ package domain
 def class QuestionGenerator {
     
     List<Shortcut> shortcutList
-    def randomSort
+    
+    def randomSort = { list ->
+        Collections.shuffle(list)
+        list
+    }
+    
     int i
     
     def QuestionGenerator(shortcutList) {

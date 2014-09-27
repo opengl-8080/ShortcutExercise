@@ -4,8 +4,9 @@ def class PresetFactory {
     
     static load(filePath) {
         def file = toFile(filePath)
+        def fileName = file.name
         
-        def preset = new Preset(extractPresetName(filePath))
+        def preset = new Preset(extractPresetName(fileName))
         
         file.readLines()
             .findAll { !it.trim().isEmpty() }
@@ -27,7 +28,7 @@ def class PresetFactory {
     }
     
     static toFile(filePath) {
-        def file = new File(filePath)
+        def file = filePath instanceof String ? new File(filePath) : filePath
         
         if (!file.exists()) {
             throw new Exception("${filePath} is not found.");

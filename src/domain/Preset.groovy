@@ -16,4 +16,9 @@ def class Preset {
     def getShortcutListCopy() {
         new ArrayList(this.shortcutList)
     }
+    
+    @Override
+    String toString() {
+        this.name
+    }
 }
