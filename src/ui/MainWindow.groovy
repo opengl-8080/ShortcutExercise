@@ -158,7 +158,9 @@ def class MainWindow {
     def buildFrame() {
         swing.frame(
             title:'Shortcut Exercise',
-            size:[500,300]
+            size:[500,300],
+            locationByPlatform: true,
+            defaultCloseOperation: JFrame.EXIT_ON_CLOSE
         ) {
             borderLayout()
             
