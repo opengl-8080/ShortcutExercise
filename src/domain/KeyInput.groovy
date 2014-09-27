@@ -15,6 +15,11 @@ def class KeyInput {
     def KeyInput(key) {
         def typed = MAPPING.get(key.keyCode as String)
         
+        if (typed == null) {
+            println "unknown key code = ${Integer.toHexString(key.keyCode)}"
+            typed = Key.A
+        }
+        
         if (!typed.isMetaKey()) {
             this.keys << typed
         }
@@ -142,5 +147,30 @@ def class KeyInput {
         (VK_UP as String): UP,
         (VK_WINDOWS as String): WINDOWS,
         (VK_WINDOWS as String): WINDOWS,
+        (VK_NUMPAD0 as String): NUMPAD0,
+        (VK_NUMPAD1 as String): NUMPAD1,
+        (VK_NUMPAD2 as String): NUMPAD2,
+        (VK_NUMPAD3 as String): NUMPAD3,
+        (VK_NUMPAD4 as String): NUMPAD4,
+        (VK_NUMPAD5 as String): NUMPAD5,
+        (VK_NUMPAD6 as String): NUMPAD6,
+        (VK_NUMPAD7 as String): NUMPAD7,
+        (VK_NUMPAD8 as String): NUMPAD8,
+        (VK_NUMPAD9 as String): NUMPAD9,
+        (VK_DIVIDE as String): DIVIDE,
+        (VK_MULTIPLY as String): MULTIPLY,
+        (VK_SUBTRACT as String): SUBTRACT,
+        (VK_ADD as String): ADD,
+        (VK_DECIMAL as String): DECIMAL,
+        (VK_HALF_WIDTH as String): HALF_WIDTH,
+        (VK_FULL_WIDTH as String): FULL_WIDTH,
+        (VK_NONCONVERT as String): NONCONVERT,
+        (VK_CONVERT as String): CONVERT,
+        (VK_KATAKANA as String): KATAKANA,
+        (VK_HIRAGANA as String): HIRAGANA,
+        (VK_CONTEXT_MENU as String): CONTEXT_MENU,
+        (VK_CLEAR as String): CLEAR,
+        (VK_ALPHANUMERIC as String): ALPHANUMERIC,
+        (VK_CANCEL as String): CANCEL
     ]
 }
