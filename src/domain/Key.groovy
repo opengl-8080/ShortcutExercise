@@ -1,7 +1,8 @@
 package domain
 
 def enum Key {
-    CTRL,ALT,SHIFT,
+    // ※列挙子の順番は、 Key の組み合わせを文字列表現にするときの順序になるので注意（Ctrl + Shift + Alt + A という順番になる）
+    CTRL(true),SHIFT(true),ALT(true),
     A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
     F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,
     _0('0'),_1('1'),_2('2'),_3('3'),_4('4'),_5('5'),_6('6'),_7('7'),_8('8'),_9('9'),
@@ -24,15 +25,26 @@ def enum Key {
     WINDOWS,
     
     def display
+    def metaKey = false
     
     def Key() {
         this.display = toLowerCaseWithoutFirstChar(this.name())
     }
     
-    def Key(display) {
+    def Key(String display) {
         this.display = display
     }
     
+    def Key(boolean metaKey) {
+        this()
+        this.metaKey = metaKey
+    }
+    
+    boolean isMetaKey() {
+        this.metaKey
+    }
+    
+    @Override
     String toString() {
         this.display
     }

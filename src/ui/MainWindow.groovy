@@ -1,12 +1,31 @@
 package ui
+
 import static java.awt.event.InputEvent.*
+
 import groovy.swing.SwingBuilder
-import java.awt.*
-import javax.swing.*
-import domain.*
 import groovy.io.FileType
 
+import java.awt.*
+import javax.swing.*
+import java.awt.event.ItemEvent
+
+import domain.*
+
 def class MainWindow {
+    
+    static def COLORS = [
+        QUESTION: new Color(255, 255, 142),
+        CORRECT: new Color(147, 255, 147),
+        INCORRECT: new Color(255, 147, 147),
+        INPUT: new Color(255, 255, 255)
+    ]
+    
+    static Shortcut GIVEUP_AND_NEXT = new Shortcut('.', Key.SHIFT, Key.ESCAPE)
+    static def IGNORE_KEYS = [
+        new Shortcut('.', Key.CTRL),
+        new Shortcut('.', Key.SHIFT),
+        new Shortcut('.', Key.ALT)
+    ]
     
     def questionGenerator
     def question
@@ -15,22 +34,35 @@ def class MainWindow {
     def presetCombobox
     def questionLabel
     def startButton
-    def answerTextArea
+    def answerArea
     
     static show() {
         def window = new MainWindow()
         window.buildFrame().show()
+        window.clearDisplay()
     }
     
     def MainWindow() {
         def presetList = this.loadPresetFiles()
         this.swing = new SwingBuilder()
         
-        this.presetCombobox = this.swing.comboBox(items: presetList)
+        this.presetCombobox =
+            this.swing.comboBox(
+                items: presetList,
+                itemStateChanged: { e ->
+                    if (e.stateChange == ItemEvent.SELECTED) {
+                        this.clearDisplay()
+                    }
+                },
+                focusGained: {
+                    this.clearDisplay()
+                }
+            )
         
         this.questionLabel = 
             this.swing.label(
-                background: new Color(230, 230, 230),
+                opaque: true,
+                background: COLORS.QUESTION,
                 font: new Font('SansSerif', Font.PLAIN, 25),
                 horizontalAlignment: JLabel.CENTER
             )
@@ -40,28 +72,69 @@ def class MainWindow {
                 label: 'Start',
                 action: this.swing.action(name: 'start', closure: {
                     def preset = this.presetCombobox.selectedItem
+                    
                     questionGenerator = new QuestionGenerator(preset.getShortcutListCopy())
                     this.printNextQuestion()
-                    this.startButton.setEnabled(false)
                 })
             )
         
-        this.answerTextArea =
-            this.swing.textArea(
-                text: 'type shortcut',
-                editable: false,
-                keyReleased: { e ->
+        this.answerArea =
+            this.swing.label(
+                opaque: true,
+                background: COLORS.INPUT,
+                font: new Font('SansSerif', Font.PLAIN, 25),
+                horizontalAlignment: JLabel.CENTER,
+                keyReleased: {e -> // Shift + ESC は Released じゃないと検知できない  
                     def input = KeyInput.parse(e)
                     
-                    /*
-                    if (this.question.answer(input)) {
-                        println 'correct!!'
-                    } else {
-                        println 'incorrect...'
+                    if (IGNORE_KEYS.any {it.match(input)}) {
+                        return
                     }
-                    */
+                    
+                    if (GIVEUP_AND_NEXT.match(input)) {
+                        if (this.question.isAnswered) {
+                            this.printNextQuestion()
+                        } else {
+                            this.giveUp()
+                        }
+                    }
+                },
+                keyPressed: { e ->
+                    def input = KeyInput.parse(e)
+                    
+                    if (IGNORE_KEYS.any {it.match(input)}) {
+                        return
+                    }
+                    
+                    if (!this.question.isAnswered) {
+                        this.judgeUserType(input)
+                    }
                 }
             )
+    }
+    
+    def clearDisplay() {
+        this.questionLabel.background = COLORS.QUESTION
+        this.questionLabel.text = 'click start button...'
+        this.answerArea.text = ''
+    }
+    
+    def giveUp() {
+        this.questionLabel.text += "(${this.question.correctAnswer})"
+        this.questionLabel.background = COLORS.CORRECT
+        this.question.isAnswered = true
+        this.answerArea.text = 'Give Up...'
+    }
+    
+    def judgeUserType(KeyInput input) {
+        if (this.question.answer(input)) {
+            this.questionLabel.background = COLORS.CORRECT
+        } else {
+            this.questionLabel.background = COLORS.INCORRECT
+        }
+        
+        this.questionLabel.text += "(${this.question.correctAnswer})"
+        this.answerArea.text = "your type => ${input}"
     }
     
     def loadPresetFiles() {
@@ -76,14 +149,16 @@ def class MainWindow {
     
     def printNextQuestion() {
         this.question = this.questionGenerator.next()
-        this.questionLabel.text = this.question.description
-        this.answerTextArea.requestFocusInWindow()
+        this.questionLabel.text = this.question.problemText
+        this.questionLabel.background = COLORS.QUESTION
+        this.answerArea.text = 'type shortcut'
+        this.answerArea.requestFocusInWindow()
     }
     
     def buildFrame() {
         swing.frame(
             title:'Shortcut Exercise',
-            size:[300,300]
+            size:[500,300]
         ) {
             borderLayout()
             
@@ -97,8 +172,7 @@ def class MainWindow {
             }
             
             panel (
-                constraints: BorderLayout.CENTER,
-                background: new Color(255, 255, 132)
+                constraints: BorderLayout.CENTER
             ) {
                 gridLayout(
                     columns: 1,
@@ -106,7 +180,7 @@ def class MainWindow {
                 )
                 
                 widget (this.questionLabel)
-                widget (this.answerTextArea)
+                widget (this.answerArea)
             }
         }
     }

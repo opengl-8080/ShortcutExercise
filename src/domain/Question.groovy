@@ -3,12 +3,14 @@ package domain
 def class Question {
     
     def shortcut
+    def isAnswered = false
     
     def Question(shortcut) {
         this.shortcut = shortcut
     }
     
     def answer(KeyInput input) {
+        this.isAnswered = true
         this.shortcut.match(input)
     }
     

@@ -13,7 +13,11 @@ def class KeyInput {
     List<Key> keys = []
     
     def KeyInput(key) {
-        this.keys << MAPPING.get(key.keyCode as String)
+        def typed = MAPPING.get(key.keyCode as String)
+        
+        if (!typed.isMetaKey()) {
+            this.keys << typed
+        }
         
         int meta = key.modifiersEx
         
@@ -34,6 +38,19 @@ def class KeyInput {
     
     def keyCount() {
         this.keys.size()
+    }
+    
+    @Override
+    String toString() {
+        this.keys
+            .sort()
+            .inject(new StringBuilder(), {memo, key ->
+                if (memo.size() != 0) {
+                    memo << ' + '
+                }
+                
+                memo << key
+            })
     }
     
     static final def MAPPING = [

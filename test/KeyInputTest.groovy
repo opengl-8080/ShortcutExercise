@@ -37,4 +37,11 @@ static test() {
     assert input.has(Key.SHIFT) == false
     assert input.has(Key.CTRL) == true
     assert input.has(Key.ALT) == true
+    
+    // only ctrl key
+    key = new DummyKeyEvent(keyCode: VK_CONTROL , metaKey: CTRL_DOWN_MASK)
+    input = KeyInput.parse(key)
+    
+    assert input.has(Key.CTRL) == true
+    assert input.keys.size() == 1
 }

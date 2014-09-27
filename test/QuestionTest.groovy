@@ -7,11 +7,17 @@ static test() {
     def shortcut = new Shortcut('desc', Key.SHIFT, Key.K)
     def question = new Question(shortcut)
     
+    // before answer
+    assert question.isAnswered == false
+    
     // correct answer
     def event = new DummyKeyEvent(keyCode: VK_K, metaKey: SHIFT_DOWN_MASK)
     def input = KeyInput.parse(event)
     
     assert question.answer(input) == true
+    
+    // after answer
+    assert question.isAnswered == true
     
     // incorrect answer
     event = new DummyKeyEvent(keyCode: VK_K, metaKey: CTRL_DOWN_MASK)
