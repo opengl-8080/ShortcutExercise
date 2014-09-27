@@ -4,6 +4,8 @@
 
 Groovy で書かれているので、 Java と Groovy が必要です。
 
+![画面イメージ](https://github.com/opengl-8080/ShortcutExercise/raw/master/doc/se.JPG)
+
 ##動作環境
 ###OS
 Windows7 と VM 上の CentOS 6.3 で動いたのを確認しています。
@@ -40,8 +42,6 @@ Mac は環境がないので分からないです。
 
 ###起動
 Windows は `exercise.bat` を、 Linux は `exercise` を実行。
-
-![]()
 
 ###練習するセットを選ぶ
 先ほど用意した定義ファイルごとに、プルダウンから選べるようになっているので、練習したいセットを選ぶ。
