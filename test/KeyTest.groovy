@@ -21,7 +21,7 @@ static testMap() {
     
     key = Key.map('comma')
     assert key == Key.COMMA
-    
+    assert key.toString() == ','
 }
 
 static ifMapNotExistsKey_throwException() {
