@@ -6,13 +6,13 @@ import static java.awt.event.InputEvent.*
 import static Key.*
 
 def class KeyInput {
-    static KeyInput parse(KeyEvent key) {
+    static KeyInput parse(key) {
         new KeyInput(key)
     }
     
     List<Key> keys = []
     
-    def KeyInput(KeyEvent key) {
+    def KeyInput(key) {
         this.keys << MAPPING.get(key.keyCode as String)
         
         int meta = key.modifiersEx

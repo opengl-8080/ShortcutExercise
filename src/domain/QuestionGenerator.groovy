@@ -25,6 +25,6 @@ def class QuestionGenerator {
             i = 0
         }
         
-        this.shortcutList[i++]
+        new Question(this.shortcutList[i++])
     }
 }

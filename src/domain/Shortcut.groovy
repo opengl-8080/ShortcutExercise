@@ -29,4 +29,17 @@ def class Shortcut {
             memo << key
         }
     }
+    
+    @Override
+    boolean equals(s) {
+        if (this.is(s)) return true;
+        if (!(s instanceof Shortcut)) return false;
+        
+        s.description == this.description && s.keys == this.keys
+    }
+    
+    @Override
+    int hashCode() {
+        Objects.hashCode(this.description, this.keys)
+    }
 }
