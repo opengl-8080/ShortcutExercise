@@ -44,4 +44,16 @@ static test() {
     
     assert input.has(Key.CTRL) == true
     assert input.keys.size() == 1
+    
+    // only meta key
+    key = new DummyKeyEvent(keyCode: VK_CONTROL, metaKey: ALT_DOWN_MASK | CTRL_DOWN_MASK)
+    input = KeyInput.parse(key)
+    
+    assert input.isOnlyMetaKey() == true
+    
+    // contains not meta key
+    key = new DummyKeyEvent(keyCode: VK_B, metaKey: ALT_DOWN_MASK | CTRL_DOWN_MASK)
+    input = KeyInput.parse(key)
+    
+    assert input.isOnlyMetaKey() == false
 }

@@ -21,11 +21,6 @@ def class MainWindow {
     ]
     
     static Shortcut GIVEUP_AND_NEXT = new Shortcut('.', Key.SHIFT, Key.ESCAPE)
-    static def IGNORE_KEYS = [
-        new Shortcut('.', Key.CTRL),
-        new Shortcut('.', Key.SHIFT),
-        new Shortcut('.', Key.ALT)
-    ]
     
     def questionGenerator
     def question
@@ -87,7 +82,7 @@ def class MainWindow {
                 keyReleased: {e -> // Shift + ESC は Released じゃないと検知できない  
                     def input = KeyInput.parse(e)
                     
-                    if (IGNORE_KEYS.any {it.match(input)}) {
+                    if (input.isOnlyMetaKey()) {
                         return
                     }
                     
@@ -102,7 +97,7 @@ def class MainWindow {
                 keyPressed: { e ->
                     def input = KeyInput.parse(e)
                     
-                    if (IGNORE_KEYS.any {it.match(input)}) {
+                    if (input.isOnlyMetaKey()) {
                         return
                     }
                     

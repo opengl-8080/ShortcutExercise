@@ -40,6 +40,10 @@ def class KeyInput {
         this.keys.size()
     }
     
+    boolean isOnlyMetaKey() {
+        this.keys.every {Key.CTRL == it || Key.SHIFT == it || Key.ALT == it}
+    }
+    
     @Override
     String toString() {
         this.keys
